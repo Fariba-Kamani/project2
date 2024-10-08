@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Meta tags for search engines-->
+    <meta name="description" content="Rock Scissors Paper Lizard Spock. Online game against computer">
+    <meta name="keywords" content="Rock, Scissors, Paper, Lizard, Spock, online game, play online">
+    <!--Google font links, preconnect to Google Fonts to reduce latency-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+     <!-- Preload the Google Fonts asynchronously -->
+     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+     <!-- Fallback for users without JavaScript -->
+     <noscript>
+         <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+     </noscript>
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!--Title-->
+    <title>Rock Scissors Paper Lizard Spock</title>
+</head>
+
+<body>
+    <!--Header-->
+    <header>
+        <img class="logo" src="assets/images/logo.webp" alt="Logo">
+        <h1 class="heading"> Rock, Scissors, Paper, Lizard, Spock</h1>
+        <nav><button class="rules" data-type="rules" aria-label="Opens the rules window"><i
+                    class="fa-regular fa-circle-question"></i></button></nav>
+    </header>
+    <main>
+        <!--Game start section-->
+        <section class="start-game">
+            <div>
+                <h2>Best of seven rounds</h2>
+                <form method="post" action="https://formdump.codeinstitute.net/">
+                    <label for="user-name">Enter your name*</label>
+                    <br>
+                    <input type="text" id="user-name" name="name" autocomplete="on">
+                    <p id="error-message">Required field! Maximum of 12 character. No space included.</p>
+                    <br>
+                    <input type="submit" name="submit" class="start-btn" value="Play!"
+                        aria-label="Click to start the game">
+                </form>
+            </div>
+        </section>
+        <div class="section-container">
+            <!--Result display area-->
+            <section class="result-display-area">
+                <div class="players-pick">
+                    <span class="user-pick" id="user-pick" aria-label="Player's pick">
+                        ✊
+                    </span>
+                    <span class="computer-pick" id="computer-pick" aria-label="Computer's pick">
+                        ✊
+                    </span>
+                </div>
+                <div class="scores">
+                    <div class="user-score">
+                        <p> <span id="player">User's</span>
+                            <br>
+                            <span class="score-counter score-left">score: <span class="user-counter"
+                                    id="user-counter">0</span></span>
+                        </p>
+                    </div>
+                    <div class="computer-score">
+                        <p>Computer's
+                            <span class="score-counter score-right">score: <span class="pc-counter"
+                                    id="pc-counter">0</span></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="text-result" id="text-result">
+                    User wins!
+                </div>
+            </section>
+            <!--Control buttons area-->
+            <section class="controls-area">
+                <h2 id="control-area-heading">Round <span id="round-count">1</span><br>Choose your weapon!</h2>
+                <div class="control-btn">
+                    <button class="btn" id="rock" data-type="✊" aria-label="rock">✊</button>
+                    <button class="btn" id="paper" data-type="✋" aria-label="paper">✋</button>
+                    <button class="btn" id="scissors" data-type="✌️" aria-label="scissors">✌️</button>
+                    <button class="btn" id="lizard" data-type="🦎" aria-label="lizard">🦎</button>
+                    <button class="btn" id="spock" data-type="🖖" aria-label="spock">🖖</button>
+                </div>
+            </section>
+            <section class="end-game">
+                <div>
+                    <h2 id="round-result">Round result</h2>
+                    <p>Play again?</p>
+                    <div id="continue-quit">
+                        <button class="yes-no-buttons" id="yes" data-type="yes" aria-label="yes">👍</button>
+                        <button class="yes-no-buttons" id="no" data-type="no" aria-label="no">👎</button>
+                    </div>
+                </div>
+            </section>
+            <section class="rules-explain" id="rule-box">
+                <div id="rules-header">
+                    <h2>Rules</h2>
+                    <div id="close-rules" tabindex="0" aria-label="Closes the rules window"><i
+                            class="fa-regular fa-rectangle-xmark"></i></div>
+                </div>
+                <hr>
+                <div id="rules-text">
+                    <p>
+                        <ul>
+                            <li>Scissors cuts Paper.</li>
+                            <li>Scissors decapitates Lizard.</li>
+                            <li>Paper covers Rock.</li>
+                            <li>Paper disproves Spock.</li>
+                            <li>Rock crushes Lizard.</li>
+                            <li>Rock crushes Scissors.</li>
+                            <li>Lizard poisons Spock.</li>
+                            <li>Lizard eats paper.</li>
+                            <li>Spock vaporizes rock.</li>
+                            <li>Spock smashes scissors</li>
+                            <li>In tie situations, both the player and the computer get one point each.</li>
+                            <li>Best score wins after seven rounds.</li>
+                        </ul>
+                    </p>
+                </div>
+                <a href="#rule-box" class="scroll-down-arrow">↓</a>
+            </section>
+        </div>
+
+    </main>
+    <footer>
+        <ul id="contact-ways">
+            <li><a href="https://www.facebook.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our facebook page (opens in a new tab)"><i
+                        class="fa-brands fa-square-facebook"></i></a></li>
+            <li><a href="https://www.instagram.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our instagram page (opens in a new tab)"><i
+                        class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="mailto:fariba.kamani87@gmail.com" target="_blank" rel="noopener"
+                    aria-label="Contact us by email (opens in a new tab)"><i class="fa-regular fa-envelope"></i></a>
+            </li>
+            <li><a href="tel:076-400-8196" target="_blank" rel="noopener"
+                    aria-label="Call us on (opens in a new tab)"><i class="fa-solid fa-square-phone-flip"></i></a></li>
+        </ul>
+    </footer>
+    <!--Font awesome kit-->
+    <script src="https://kit.fontawesome.com/ae844b4cb8.js" crossorigin="anonymous"></script>
+    <!--JavaScript link-->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
