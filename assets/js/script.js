@@ -34,7 +34,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
     
 });
 
-document.querySelector('.rules').addEventListener('click', gameRules1);
+document.querySelector('.rules').addEventListener('click', gameRules);
 
 function setUser(user) {
     document.getElementById('player').innerHTML = `${user}'s`;
@@ -74,9 +74,6 @@ function runGame() {
                     playerChoice = this.getAttribute('data-type');
                     showUsersChoice(playerChoice);
                     showComputersChoice();
-                    break;
-                case 'rules':
-                    gameRules2();
                     break;
             }
     });
@@ -237,15 +234,11 @@ function ShowResult() {
         
     }
     roundCounter();  
-    document.querySelectorAll(".rules").forEach(element => {
-        element.style.color = "#e2f5e2";
-    });
+    
      // Show the result for 3 seconds and then reset
     setTimeout(function () {
         result.style.display = 'none';  // Hide result after 3 seconds
-        document.querySelectorAll(".rules").forEach(element => {
-            element.style.color = "#00D26A";
-        });
+       
 
         // Reset user and computer choices to ✊
         document.getElementById('user-pick').innerHTML = '✊';
@@ -278,47 +271,78 @@ function roundCounter() {
     } 
 }
 
-function gameRules1() {
-    document.querySelectorAll(".rules-explain").forEach(element => {
+function gameRules() {
+    let textResult = document.getElementById('text-result');
+    let rulesExplain = document.querySelectorAll(".rules-explain");
+    let controlsArea = document.querySelectorAll(".controls-area");
+    let resultDisplayArea = document.querySelectorAll(".result-display-area");
+    let startGame = document.querySelectorAll(".start-game");
+    let flag;
+    let player = document.getElementById("player").innerHTML;
+    let rulesElement = document.querySelector(".rules");
+
+    // Text input validation
+     
+    //1- for if rules clicked during result display
+    // Check if the result is currently being displayed
+    if (textResult.style.display === 'block') {
+        // Alert the user that the rules can't be shown during result display
+        alert("The rules can't be shown while the result is displayed.");
+        // Remove hover effect by adding a class that disables it
+        rulesElement.classList.add("no-hover");
+        // Reset hover effect
+        rulesElement.classList.remove("no-hover");
+        
+        
+        // Return early to prevent the rules from being shown
+        return;
+    } else if(player === "") {
+        //for if the rules clicked from login
+        flag = 1;
+    rulesExplain.forEach(element => {
         element.style.display = "block";
     });
-    document.querySelectorAll(".start-game").forEach(element => {
+    startGame.forEach(element => {
         element.style.display = "none";
     });
 
-    document.querySelector("#close-rules").addEventListener('click', closeRules1);
+    document.querySelector("#close-rules").addEventListener('click', function() {
+        closeRules(flag);
+    });
     document.querySelector("#close-rules").addEventListener("keydown", function(event) {
         // Check if the pressed key is "Enter"
         if (event.key === "Enter") {
-          closeRules1();
+          closeRules(flag);
         }
       }); 
-    }
 
-// Separate function to show the rules, reused in both conditions
-function gameRules2() {
-    document.querySelectorAll(".rules-explain").forEach(element => {
-        element.style.display = "block";
-    });
-    document.querySelectorAll(".result-display-area").forEach(element => {
-        element.style.display = "none";
-    });
+    } else {
+        flag = 2;
+        //for if rules clicked from game section
+        rulesExplain.forEach(element => {
+            element.style.display = "block";
+        });
+        resultDisplayArea.forEach(element => {
+            element.style.display = "none";
+        });
+    
+        // Hide elements with class 'controls-area'
+        controlsArea.forEach(element => {
+            element.style.display = "none";
+        });
+    
+        // Event listener for closing the rules section
+        document.querySelector("#close-rules").addEventListener('click', function() {
+            closeRules(flag)});
+        document.querySelector("#close-rules").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                closeRules(flag);
+            }
+        });
 
-    // Hide elements with class 'controls-area'
-    document.querySelectorAll(".controls-area").forEach(element => {
-        element.style.display = "none";
-    });
-
-    // Event listener for closing the rules section
-    document.querySelector("#close-rules").addEventListener('click', closeRules2);
-    document.querySelector("#close-rules").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            closeRules2();
-        }
-    });
+    }      
 }
-
-    function closeRules1() {
+    function closeRules(flag) {
         let endGameElements = document.querySelectorAll(".end-game");
     
         // Check if all elements are hidden
@@ -328,45 +352,40 @@ function gameRules2() {
                 element.style.display = "none";
             });
     
-        } else {
+        } else if (flag === 1){
         document.querySelectorAll(".rules-explain").forEach(element => {
+            element.style.display = "none";
+        });
+        document.querySelectorAll(".result-display-area").forEach(element => {
+            element.style.display = "none";
+        });
+    
+        // Show elements with class 'controls-area'
+        document.querySelectorAll(".controls-area").forEach(element => {
             element.style.display = "none";
         });
         document.querySelectorAll(".start-game").forEach(element => {
             element.style.display = "flex";
         });
-    }
-    
-    }
-
-function closeRules2() {
-    let endGameElements = document.querySelectorAll(".end-game");
-
-    // Check if all elements are hidden
-    let isVisible = Array.from(endGameElements).every(element => element.style.display === "block");
-    if(isVisible) {
+    } else {
         document.querySelectorAll(".rules-explain").forEach(element => {
             element.style.display = "none";
         });
+        document.querySelectorAll(".start-game").forEach(element => {
+            element.style.display = "none";
+        });
+        document.querySelectorAll(".result-display-area").forEach(element => {
+            element.style.display = "flex";
+        });
+    
+        // Show elements with class 'controls-area'
+        document.querySelectorAll(".controls-area").forEach(element => {
+            element.style.display = "flex";
+        });
 
-    } else {
-    document.querySelectorAll(".rules-explain").forEach(element => {
-        element.style.display = "none";
-    });
-    document.querySelectorAll(".start-game").forEach(element => {
-        element.style.display = "none";
-    });
-    document.querySelectorAll(".result-display-area").forEach(element => {
-        element.style.display = "flex";
-    });
-
-    // Show elements with class 'controls-area'
-    document.querySelectorAll(".controls-area").forEach(element => {
-        element.style.display = "flex";
-    });
-}
-
-}
+    }
+    
+    }
 
 function exitGame() {
     let userScore = parseInt(document.getElementById('user-counter').innerText);
